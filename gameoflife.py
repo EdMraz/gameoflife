@@ -4,7 +4,7 @@ win = tkinter.Tk()
 WIDTH = 900
 HEIGHT = 600
 
-temp = 1
+temp = True
 
 canvas = tkinter.Canvas(width=WIDTH,height=HEIGHT,bg="white")
 canvas.grid(columnspan=3,rowspan=1)
@@ -107,7 +107,7 @@ def drawcells(oldfield,ws=15):
                 cellist.append(canvas.create_oval(x*ws,y*ws,(x+1)*ws,(y+1)*ws,fill="turquoise"))
 
 def generations():
-    if temp % 2 == 1:
+    if temp == True:
         global oldfield,newfield,cellist
         print(oldfield)
         drawcells(oldfield)
@@ -122,6 +122,8 @@ def generations():
         newfield = create2Dmatrix(width,height)
         canvas.after(100,generations)
         #input()
+    else:
+        stopauto()
 
 def generacia_postupne():
     global oldfield,newfield,cellist
@@ -136,8 +138,10 @@ def generacia_postupne():
 
 def stopauto():
     global temp
-    temp += 1
-
+    if temp == True:
+        temp = False
+    else:
+        temp = True
 
 drawcells(oldfield)
 drawgrid()
@@ -145,6 +149,6 @@ button_auto = tkinter.Button(win,bg="grey",fg="white" ,text="Automatika", font="
 button_auto.grid(row=1,column=0)
 button_auto = tkinter.Button(win,bg="grey",fg="white",text="Generácia", font="Arial 20",command=generacia_postupne)
 button_auto.grid(row=1,column=2)
-button_auto = tkinter.Button(win,bg="red",fg="white",text="Stop auto", font="Arial 10",command=stopauto)
+button_auto = tkinter.Button(win,bg="red",fg="white",text="Stop", font="Arial 10",command=stopauto)
 button_auto.grid(row=1,column=1)
 win.mainloop()
